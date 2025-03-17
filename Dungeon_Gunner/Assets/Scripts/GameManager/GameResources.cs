@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class GameResources : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static GameResources instance;
+
+    public static GameResources Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = Resources.Load<GameResources>("GameResources");
+            }
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #region Header Dungeon  
+    [Space(10)]
+    [Header("Dungeon")]
+    #endregion
+    #region Tooltip
+    [Tooltip("Populate with RoomNodeTypeListSO")]
+    #endregion
+
+    public RoomNodeTypeListSO roomNodeTypeList;
 }
