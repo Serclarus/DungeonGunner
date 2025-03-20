@@ -7,7 +7,7 @@ using UnityEngine;
 public class RoomNodeTypeSO : ScriptableObject
 {
     public string roomNodeTypeName;
-    public bool displayInTheGraphEditor;
+    public bool displayInTheGraphEditor = true;
     public bool isCorridor;
     public bool isCorridorNS;
     public bool isCorridorEW;
