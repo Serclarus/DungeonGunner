@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae974edc58506b742b25f7b5c0f373fb, type: 3}
   m_Name: RoomNodeType_ChestRoom
   m_EditorClassIdentifier: 
-  roomNodeTypeName: 
-  displayInTheGraphEditor: 1
+  roomNodeTypeName: Chest Room
+  displayInNodeGraphEditor: 1
   isCorridor: 0
   isCorridorNS: 0
   isCorridorEW: 0
