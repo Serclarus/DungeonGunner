@@ -120,6 +120,11 @@ public class RoomNodeSO : ScriptableObject
         {
             ProcessLeftClickDownEvent();
         }
+        // right click down
+        else if(currentEvent.button == 1)
+        {
+            ProcessRightClickDownEvent(currentEvent);
+        }
     }
 
     /// <summary>
@@ -138,6 +143,11 @@ public class RoomNodeSO : ScriptableObject
         {
             isSelected = true;
         }
+    }
+
+    private void ProcessRightClickDownEvent(Event currentEvent)
+    {
+        roomNodeGraph.SetNodeToDrawConnectionLineFrom(this, currentEvent.mousePosition);
     }
 
     private void ProcessMouseUpEvent(Event currentEvent)
@@ -184,6 +194,32 @@ public class RoomNodeSO : ScriptableObject
         rect.position += delta;
         EditorUtility.SetDirty(this);
     }
+
+    public bool AddChildRoomNodeIDToRoomNode(string childID)
+    {
+        if (!childRoomNodeIDList.Contains(childID))
+        {
+            childRoomNodeIDList.Add(childID);
+            EditorUtility.SetDirty(this); // <-- Make sure Unity saves it
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public bool AddParentRoomNodeIDToRoomNode(string parentID)
+    {
+        if (!parentRoomNodeIDList.Contains(parentID))
+        {
+            parentRoomNodeIDList.Add(parentID);
+            EditorUtility.SetDirty(this); // <-- Same here
+            return true;
+        }
+
+        return false;
+    }
+
 
 #endif
     #endregion Editor Code
