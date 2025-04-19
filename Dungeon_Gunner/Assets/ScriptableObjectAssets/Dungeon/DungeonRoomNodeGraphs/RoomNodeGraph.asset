@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4035587952533170094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb06a7e679c92ca4c8fea26b364065f8, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: c13d7242-8505-47e8-8008-3d171e1d9f94
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: 04967b79aca13e5408f817f9ccace5a5, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: fafceae15bbb43d4fa15fae23bec22f5, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 514
+    y: 334
+    width: 160
+    height: 80
+--- !u!114 &-3070145284944155604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb06a7e679c92ca4c8fea26b364065f8, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: 4dc4ed13-e992-41ac-8f0e-7a8e5fe55d90
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: 3a59aa68a2d70cf48be7df223767bcb5, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: fafceae15bbb43d4fa15fae23bec22f5, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 270
+    y: 221
+    width: 160
+    height: 80
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40457d5c507734c459bb1739ac7caf52, type: 3}
+  m_Name: RoomNodeGraph
+  m_EditorClassIdentifier: 
+  roomNodeTypeList: {fileID: 0}
+  roomNodeList:
+  - {fileID: -3070145284944155604}
+  - {fileID: -4035587952533170094}
+  - {fileID: 4348719509305403371}
+--- !u!114 &4348719509305403371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb06a7e679c92ca4c8fea26b364065f8, type: 3}
+  m_Name: RoomNode
+  m_EditorClassIdentifier: 
+  id: fa743f7a-156d-404a-ac93-a86f22c952df
+  parentRoomNodeIDList: []
+  childRoomNodeIDList: []
+  roomNodeGraph: {fileID: 11400000}
+  roomNodeType: {fileID: 11400000, guid: 26b00075a143a8e4fa565deda909d585, type: 2}
+  roomNodeTypeList: {fileID: 11400000, guid: fafceae15bbb43d4fa15fae23bec22f5, type: 2}
+  rect:
+    serializedVersion: 2
+    x: 412
+    y: 417
+    width: 160
+    height: 80
