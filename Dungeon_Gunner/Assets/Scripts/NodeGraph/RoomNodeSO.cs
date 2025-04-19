@@ -50,6 +50,20 @@ public class RoomNodeSO : ScriptableObject
     /// </summary>
     public void Draw(GUIStyle nodeStyle)
     {
+        if (roomNodeTypeList == null)
+        {
+            Debug.LogWarning($"[RoomNodeSO] RoomNodeTypeList is null on node: {name}. Attempting to reload.");
+            roomNodeTypeList = GameResources.Instance?.roomNodeTypeList;
+
+            if (roomNodeTypeList == null)
+            {
+                GUILayout.BeginArea(rect, nodeStyle);
+                GUILayout.Label("Missing RoomNodeTypeList");
+                GUILayout.EndArea();
+                return;
+            }
+        }
+
         // Draw Node Box Using Begin Area
         GUILayout.BeginArea(rect, nodeStyle);
 
@@ -70,23 +84,28 @@ public class RoomNodeSO : ScriptableObject
     }
 
 
+
     /// <summary>
     /// Populate a string array with the room node types to display that can be selected
     /// </summary>
     public string[] GetRoomNodeTypesToDisplay()
     {
+        if (roomNodeTypeList == null)
+        {
+            Debug.LogWarning($"[RoomNodeSO] roomNodeTypeList is null when calling GetRoomNodeTypesToDisplay for node: {name}");
+            return new string[] { "None" };
+        }
+
         string[] roomArray = new string[roomNodeTypeList.list.Count];
 
         for (int i = 0; i < roomNodeTypeList.list.Count; i++)
         {
-            if (roomNodeTypeList.list[i].displayInNodeGraphEditor)
-            {
-                roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
-            }
+            roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
         }
 
         return roomArray;
     }
+
 
 
     public void ProcessEvents(Event currentEvent)

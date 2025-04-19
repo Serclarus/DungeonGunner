@@ -9,21 +9,28 @@ public class RoomNodeGraphSO : ScriptableObject
     [HideInInspector] public List<RoomNodeSO> roomNodeList = new List<RoomNodeSO>();
     [HideInInspector] public Dictionary<string, RoomNodeSO> roomNodeDictionary = new Dictionary<string, RoomNodeSO>();
 
-    private void Awake()
+    private void OnEnable()
     {
         LoadRoomNodeDictionary();
     }
 
-    private void LoadRoomNodeDictionary()
+    public void LoadRoomNodeDictionary()
     {
         roomNodeDictionary.Clear();
 
-        // Populate dictionary
         foreach (RoomNodeSO node in roomNodeList)
         {
-            roomNodeDictionary[node.id] = node;
+            if (string.IsNullOrEmpty(node.id))
+            {
+                Debug.LogWarning($"[RoomNodeGraphSO] Node '{node.name}' is missing an ID!");
+            }
+            else
+            {
+                roomNodeDictionary[node.id] = node;
+            }
         }
     }
+
 
     #region Editor Code
     // The following code should only run in the Unity Editor
