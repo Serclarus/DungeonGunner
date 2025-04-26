@@ -219,25 +219,21 @@ public class RoomNodeSO : ScriptableObject
         if (!childRoomNodeIDList.Contains(childID))
         {
             childRoomNodeIDList.Add(childID);
-            EditorUtility.SetDirty(this); // <-- Make sure Unity saves it
             return true;
         }
-
         return false;
     }
-
 
     public bool AddParentRoomNodeIDToRoomNode(string parentID)
     {
         if (!parentRoomNodeIDList.Contains(parentID))
         {
             parentRoomNodeIDList.Add(parentID);
-            EditorUtility.SetDirty(this); // <-- Same here
             return true;
         }
-
         return false;
     }
+
 
 
 #endif

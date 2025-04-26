@@ -198,29 +198,34 @@ public class RoomNodeGraphEditor : EditorWindow
 
     private void ProcessMouseUpEvent(Event currentEvent)
     {
-        // if releasing the right mouse button and currently dragging a line
         if (currentEvent.button == 1 && currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
         {
             RoomNodeSO roomNode = IsMouseOverRoomNode(currentEvent);
-
             if (roomNode != null)
             {
-                // if so set it as a child of the parent room node if it can be added
+                Debug.Log($"Trying to connect FROM '{currentRoomNodeGraph.roomNodeToDrawLineFrom.name}' TO '{roomNode.name}'");
+
                 if (currentRoomNodeGraph.roomNodeToDrawLineFrom.AddChildRoomNodeIDToRoomNode(roomNode.id))
                 {
-                    // Set parent ID in child room node
+                    Debug.Log($"Connection successful! {currentRoomNodeGraph.roomNodeToDrawLineFrom.name} -> {roomNode.name}");
                     roomNode.AddParentRoomNodeIDToRoomNode(currentRoomNodeGraph.roomNodeToDrawLineFrom.id);
+                    currentRoomNodeGraph.OnValidate();
 
-                    //  Mark both nodes and the graph dirty so Unity saves them
-                    EditorUtility.SetDirty(currentRoomNodeGraph.roomNodeToDrawLineFrom);
-                    EditorUtility.SetDirty(roomNode);
-                    EditorUtility.SetDirty(currentRoomNodeGraph);
                 }
-
+                else
+                {
+                    Debug.LogWarning($"Failed to add connection. Maybe already connected?");
+                }
             }
+            else
+            {
+                Debug.LogWarning("Mouse released NOT over a valid node. Connection canceled.");
+            }
+
             ClearLineDrag();
         }
     }
+
 
     private void ProcessMouseDragEvent(Event currentEvent)
     {
