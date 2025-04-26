@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3e6c6fe5-5b67-4fe8-a9f5-52665a21ed87
   parentRoomNodeIDList: []
-  childRoomNodeIDList: []
+  childRoomNodeIDList:
+  - fc7a72a5-824a-495e-aa21-79bb83195035
   roomNodeGraph: {fileID: 11400000}
   roomNodeType: {fileID: 11400000, guid: 604543a66e931b741bdb9f1e0ada553e, type: 2}
   roomNodeTypeList: {fileID: 11400000, guid: fafceae15bbb43d4fa15fae23bec22f5, type: 2}
@@ -96,7 +97,8 @@ MonoBehaviour:
   m_Name: RoomNode
   m_EditorClassIdentifier: 
   id: fc7a72a5-824a-495e-aa21-79bb83195035
-  parentRoomNodeIDList: []
+  parentRoomNodeIDList:
+  - 3e6c6fe5-5b67-4fe8-a9f5-52665a21ed87
   childRoomNodeIDList: []
   roomNodeGraph: {fileID: 11400000}
   roomNodeType: {fileID: 11400000, guid: 604543a66e931b741bdb9f1e0ada553e, type: 2}
