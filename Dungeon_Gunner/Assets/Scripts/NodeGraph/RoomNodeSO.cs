@@ -8,9 +8,9 @@ using System;
 
 public class RoomNodeSO : ScriptableObject
 {
-    [HideInInspector] public string id;
-    [HideInInspector] public List<string> parentRoomNodeIDList = new List<string>(); 
-    [HideInInspector] public List<string> childRoomNodeIDList = new List<string>();
+    public string id;
+    public List<string> parentRoomNodeIDList = new List<string>();
+    public List<string> childRoomNodeIDList = new List<string>();
     [HideInInspector] public RoomNodeGraphSO roomNodeGraph;
     public RoomNodeTypeSO roomNodeType;
     [HideInInspector] public RoomNodeTypeListSO roomNodeTypeList;
@@ -48,37 +48,36 @@ public class RoomNodeSO : ScriptableObject
     /// <summary>
     /// Draw node with the nodestyle
     /// </summary>
+    /// <summary>
+    /// Draw node with the nodestyle
+    /// </summary>
     public void Draw(GUIStyle nodeStyle)
     {
-        if (roomNodeTypeList == null)
-        {
-            Debug.LogWarning($"[RoomNodeSO] RoomNodeTypeList is null on node: {name}. Attempting to reload.");
-            roomNodeTypeList = GameResources.Instance?.roomNodeTypeList;
-
-            if (roomNodeTypeList == null)
-            {
-                GUILayout.BeginArea(rect, nodeStyle);
-                GUILayout.Label("Missing RoomNodeTypeList");
-                GUILayout.EndArea();
-                return;
-            }
-        }
-
         // Draw Node Box Using Begin Area
         GUILayout.BeginArea(rect, nodeStyle);
 
         // Start Region To Detect Popup Selection Changes
         EditorGUI.BeginChangeCheck();
 
-        // Display a popup using the RoomNodeType name values that can be selected from (default to the currently set roomNodeType)
-        int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
+        // If the room node has a parent or is of type entrance then display a label else display a popup
+        if (parentRoomNodeIDList.Count > 0 || roomNodeType.isEntrance)
+        {
+            // Display a label that can't be changed
+            EditorGUILayout.LabelField(roomNodeType.roomNodeTypeName);
+        }
+        else
+        {
+            // Display a popup using the RoomNodeType name values that can be selected from (default to the currently set roomNodeType)
+            int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
+            int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
 
-        int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
-
-        roomNodeType = roomNodeTypeList.list[selection];
+            roomNodeType = roomNodeTypeList.list[selection];
+        }
 
         if (EditorGUI.EndChangeCheck())
+        {
             EditorUtility.SetDirty(this);
+        }
 
         GUILayout.EndArea();
     }
@@ -90,22 +89,18 @@ public class RoomNodeSO : ScriptableObject
     /// </summary>
     public string[] GetRoomNodeTypesToDisplay()
     {
-        if (roomNodeTypeList == null)
-        {
-            Debug.LogWarning($"[RoomNodeSO] roomNodeTypeList is null when calling GetRoomNodeTypesToDisplay for node: {name}");
-            return new string[] { "None" };
-        }
-
         string[] roomArray = new string[roomNodeTypeList.list.Count];
 
         for (int i = 0; i < roomNodeTypeList.list.Count; i++)
         {
-            roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
+            if (roomNodeTypeList.list[i].displayInNodeGraphEditor)
+            {
+                roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
+            }
         }
 
         return roomArray;
     }
-
 
 
     public void ProcessEvents(Event currentEvent)
@@ -140,7 +135,7 @@ public class RoomNodeSO : ScriptableObject
             ProcessLeftClickDownEvent();
         }
         // right click down
-        else if(currentEvent.button == 1)
+        else if (currentEvent.button == 1)
         {
             ProcessRightClickDownEvent(currentEvent);
         }
@@ -216,7 +211,8 @@ public class RoomNodeSO : ScriptableObject
 
     public bool AddChildRoomNodeIDToRoomNode(string childID)
     {
-        if (!childRoomNodeIDList.Contains(childID))
+        // Check child node can be added validly to parent
+        if (IsChildRoomValid(childID))
         {
             childRoomNodeIDList.Add(childID);
             return true;
@@ -224,17 +220,100 @@ public class RoomNodeSO : ScriptableObject
         return false;
     }
 
-    public bool AddParentRoomNodeIDToRoomNode(string parentID)
+    /// <summary>
+    /// Check the child node can be validly added to the parent node - return true if it can otherwise return false
+    /// </summary>
+    public bool IsChildRoomValid(string childID)
     {
-        if (!parentRoomNodeIDList.Contains(parentID))
+        RoomNodeSO childNode = roomNodeGraph.GetRoomNode(childID);
+
+        if (childNode == null)
         {
-            parentRoomNodeIDList.Add(parentID);
-            return true;
+            Debug.LogError($"[RoomNodeSO] Trying to validate child node but child ID '{childID}' does not exist in graph '{roomNodeGraph.name}'!");
+            return false;
         }
-        return false;
+
+
+        bool isConnectedBossNodeAlready = false;
+
+        // Check if there is already a connected boss room in the node graph
+        foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList)
+        {
+            if (roomNode.roomNodeType.isBossRoom && roomNode.parentRoomNodeIDList.Count > 0)
+            {
+                isConnectedBossNodeAlready = true;
+            }
+        }
+
+        // If the child node has a type of boss room and there is already a connected boss room node then return false
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isBossRoom && isConnectedBossNodeAlready)
+            return false;
+
+        // If the child node has a type of none then return false
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isNone)
+            return false;
+
+        // If the node already has a child with this child ID return false
+        if (childRoomNodeIDList.Contains(childID))
+            return false;
+
+        // If the node already has a child with this child ID return false
+        if (childRoomNodeIDList.Contains(childID))
+            return false;
+
+        // If this node ID and the child ID are the same return false
+        if (id == childID)
+
+        // If this childID is already in the parentID list return false
+        if (parentRoomNodeIDList.Contains(childID))
+        {
+            return false;
+        }
+
+        // If the child node already has a parent return false
+        if (roomNodeGraph.GetRoomNode(childID).parentRoomNodeIDList.Count > 0)
+        {
+            return false;
+        }
+
+        // If child is a corridor and this node is not a corridor return false
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && !roomNodeType.isCorridor)
+        {
+            return false;
+        }
+
+        // If child is not a corridor and this node is a corridor return false
+        if (!roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && roomNodeType.isCorridor)
+        {
+            return false;
+        }
+
+        // If adding a corridor check that this node has the maximum permitted child corridors
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count >= Settings.maxChildCorridors)
+        {
+            return false;
+        }
+
+        // If this room is an entrance return false - the entrance must always be the top level parent node
+        if (roomNodeType.isEntrance)
+        {
+            return false;
+        }
+
+        // If adding a room to a corridor check that this corridor node doesn't already have a room added
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count > 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 
-
+    public bool AddParentRoomNodeIDToRoomNode(string parentID)
+    {
+        parentRoomNodeIDList.Add(parentID);
+        return true;
+    }
 
 #endif
     #endregion Editor Code

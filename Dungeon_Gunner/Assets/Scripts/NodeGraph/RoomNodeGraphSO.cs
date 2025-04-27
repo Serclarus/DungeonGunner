@@ -20,15 +20,17 @@ public class RoomNodeGraphSO : ScriptableObject
 
         foreach (RoomNodeSO node in roomNodeList)
         {
-            if (string.IsNullOrEmpty(node.id))
-            {
-                Debug.LogWarning($"[RoomNodeGraphSO] Node '{node.name}' is missing an ID!");
-            }
-            else
-            {
-                roomNodeDictionary[node.id] = node;
-            }
+            roomNodeDictionary[node.id] = node;
         }
+    }
+
+    public RoomNodeSO GetRoomNode(string roomNodeID)
+    {
+        if (roomNodeDictionary.TryGetValue(roomNodeID, out RoomNodeSO roomNode))
+        {
+            return roomNode;
+        }
+        return null;
     }
 
 
