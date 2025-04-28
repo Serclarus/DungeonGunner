@@ -220,29 +220,18 @@ public class RoomNodeSO : ScriptableObject
         return false;
     }
 
+
     /// <summary>
     /// Check the child node can be validly added to the parent node - return true if it can otherwise return false
     /// </summary>
     public bool IsChildRoomValid(string childID)
     {
-        RoomNodeSO childNode = roomNodeGraph.GetRoomNode(childID);
-
-        if (childNode == null)
-        {
-            Debug.LogError($"[RoomNodeSO] Trying to validate child node but child ID '{childID}' does not exist in graph '{roomNodeGraph.name}'!");
-            return false;
-        }
-
-
         bool isConnectedBossNodeAlready = false;
-
-        // Check if there is already a connected boss room in the node graph
+        // Check if there is there already a connected boss room in the node graph
         foreach (RoomNodeSO roomNode in roomNodeGraph.roomNodeList)
         {
             if (roomNode.roomNodeType.isBossRoom && roomNode.parentRoomNodeIDList.Count > 0)
-            {
                 isConnectedBossNodeAlready = true;
-            }
         }
 
         // If the child node has a type of boss room and there is already a connected boss room node then return false
@@ -257,57 +246,61 @@ public class RoomNodeSO : ScriptableObject
         if (childRoomNodeIDList.Contains(childID))
             return false;
 
-        // If the node already has a child with this child ID return false
-        if (childRoomNodeIDList.Contains(childID))
-            return false;
-
         // If this node ID and the child ID are the same return false
         if (id == childID)
-
-        // If this childID is already in the parentID list return false
-        if (parentRoomNodeIDList.Contains(childID))
-        {
             return false;
-        }
 
-        // If the child node already has a parent return false
+        // If this child ID is already in the parentID list return false
+        if (parentRoomNodeIDList.Contains(childID))
+            return false;
+
+        // 6 - Child already has a parent
         if (roomNodeGraph.GetRoomNode(childID).parentRoomNodeIDList.Count > 0)
         {
+            Debug.LogWarning($"[Validation 6] Failed: Child already has a parent. Parent: {id} -> Child: {childID}");
             return false;
         }
 
-        // If child is a corridor and this node is not a corridor return false
-        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && !roomNodeType.isCorridor)
+        // 7 - Child is corridor and parent is corridor
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && roomNodeType.isCorridor)
         {
+            Debug.LogWarning($"[Validation 7] Failed: Cannot connect corridor to corridor. Parent: {id} -> Child: {childID}");
             return false;
         }
 
-        // If child is not a corridor and this node is a corridor return false
-        if (!roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && roomNodeType.isCorridor)
+        // 8 - Child is not corridor and parent is corridor
+        if (!roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && !roomNodeType.isCorridor)
         {
+            Debug.LogWarning($"[Validation 8] Failed: Cannot connect non-corridor to corridor. Parent: {id} -> Child: {childID}");
             return false;
         }
 
-        // If adding a corridor check that this node has the maximum permitted child corridors
+        // 9 - Max child corridors reached
         if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count >= Settings.maxChildCorridors)
         {
+            Debug.LogWarning($"[Validation 9] Failed: Max child corridors reached ({Settings.maxChildCorridors}). Parent: {id} -> Child: {childID}");
             return false;
         }
 
-        // If this room is an entrance return false - the entrance must always be the top level parent node
-        if (roomNodeType.isEntrance)
+        // 10 - Child is entrance
+        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isEntrance)
         {
+            Debug.LogWarning($"[Validation 10] Failed: Cannot add entrance as child. Parent: {id} -> Child: {childID}");
             return false;
         }
 
-        // If adding a room to a corridor check that this corridor node doesn't already have a room added
-        if (roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count > 0)
+        // 11 - Corridor already has a room connected
+        if (!roomNodeGraph.GetRoomNode(childID).roomNodeType.isCorridor && childRoomNodeIDList.Count > 0)
         {
+            Debug.LogWarning($"[Validation 11] Failed: Corridor already has a room connected. Parent: {id} -> Child: {childID}");
             return false;
         }
 
+        Debug.Log($"[Validation] Success: Connection valid. Parent: {id} -> Child: {childID}");
         return true;
     }
+
+
 
     public bool AddParentRoomNodeIDToRoomNode(string parentID)
     {

@@ -238,30 +238,34 @@ public class RoomNodeGraphEditor : EditorWindow
 
     private void ProcessMouseUpEvent(Event currentEvent)
     {
+        // If releasing the right mouse button and currently dragging a line
         if (currentEvent.button == 1 && currentRoomNodeGraph.roomNodeToDrawLineFrom != null)
         {
             RoomNodeSO roomNode = IsMouseOverRoomNode(currentEvent);
 
             if (roomNode != null)
             {
-                // Try to add the child node ID to the parent node's list
+                // Debugging: Check if the parent-child relationship can be added
+                Debug.Log($"Attempting to add child node {roomNode.id} to parent node {currentRoomNodeGraph.roomNodeToDrawLineFrom.id}");
+
                 bool added = currentRoomNodeGraph.roomNodeToDrawLineFrom.AddChildRoomNodeIDToRoomNode(roomNode.id);
+
                 if (added)
                 {
-                    Debug.Log($"Added child node {roomNode.id} to parent node {currentRoomNodeGraph.roomNodeToDrawLineFrom.id}");
-                    // Set parent ID in child room node
+                    Debug.Log($"Successfully added child node {roomNode.id} to parent node {currentRoomNodeGraph.roomNodeToDrawLineFrom.id}");
                     roomNode.AddParentRoomNodeIDToRoomNode(currentRoomNodeGraph.roomNodeToDrawLineFrom.id);
-                    Debug.Log($"Added parent node {currentRoomNodeGraph.roomNodeToDrawLineFrom.id} to child node {roomNode.id}");
-                    currentRoomNodeGraph.OnValidate();  // Revalidate after adding the connection
+                    currentRoomNodeGraph.OnValidate();
                 }
                 else
                 {
-                    Debug.Log($"Failed to add child node {roomNode.id} to parent node {currentRoomNodeGraph.roomNodeToDrawLineFrom.id}");
+                    Debug.LogWarning($"Failed to add child node {roomNode.id} to parent node {currentRoomNodeGraph.roomNodeToDrawLineFrom.id}");
                 }
             }
+
             ClearLineDrag();
         }
     }
+
 
 
     private void ProcessMouseDragEvent(Event currentEvent)
