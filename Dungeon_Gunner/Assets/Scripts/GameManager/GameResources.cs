@@ -28,6 +28,8 @@ public class GameResources : MonoBehaviour
 
     public RoomNodeTypeListSO roomNodeTypeList;
 
+    public CurrentPlayerSO currentPlayer;
+
     #region Header MATERIALS
     [Space(10)]
     [Header("MATERIALS")]
