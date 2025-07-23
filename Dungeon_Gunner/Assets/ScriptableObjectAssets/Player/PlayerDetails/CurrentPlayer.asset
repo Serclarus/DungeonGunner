@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e4e0b8f9b6722b4b89eaca3c2481e3f, type: 3}
   m_Name: CurrentPlayer
   m_EditorClassIdentifier: 
-  playerDetails: {fileID: 0}
+  playerDetails: {fileID: 11400000, guid: bf1a08d4d9e6a904ea9cbbfe74c68415, type: 2}
   playerName: 

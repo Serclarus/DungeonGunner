@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee4c4b716b16f6244a6f476f27888c80, type: 3}
   m_Name: PlayerDetails_ TheScientist
   m_EditorClassIdentifier: 
-  playerCharacterName: 
-  playerPrefab: {fileID: 0}
-  runtimeAnimatorController: {fileID: 0}
-  playerHealthAmount: 0
-  playerMiniMapIcon: {fileID: 0}
-  playerHandSprite: {fileID: 0}
+  playerCharacterName: The Scientist
+  playerPrefab: {fileID: 1549061761825896682, guid: 73fe8843ed5c25849b1154222e76152d, type: 3}
+  runtimeAnimatorController: {fileID: 9100000, guid: e52ed9234b488b0449570da9e57ce474, type: 2}
+  playerHealthAmount: 100
+  playerMiniMapIcon: {fileID: 21300000, guid: da88e4a191f22674e9aab239e652640a, type: 3}
+  playerHandSprite: {fileID: 21300000, guid: 2788b711f80a9194096a03ef26a440cb, type: 3}

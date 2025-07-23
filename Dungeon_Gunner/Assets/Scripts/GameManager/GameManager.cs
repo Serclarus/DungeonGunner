@@ -97,6 +97,11 @@ public class GameManager : SingletonMonobehaviour<GameManager>
         );
     }
 
+    public Player GetPlayer()
+    {
+        return player;
+    }
+
     public Room GetCurrentRoom()
     {
         return currentRoom;
