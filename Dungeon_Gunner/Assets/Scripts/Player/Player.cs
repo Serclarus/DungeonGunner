@@ -29,9 +29,11 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Initialize(PlayerDetailsSO playerDetails)
+    public void Initialize(PlayerDetailsSO playerDetails)
     {
         this.playerDetails = playerDetails;
+
+        SetPlayerHealth();
     }
 
     private void SetPlayerHealth()

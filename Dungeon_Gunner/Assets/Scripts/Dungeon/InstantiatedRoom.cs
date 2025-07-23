@@ -152,7 +152,7 @@ public class InstantiatedRoom : MonoBehaviour
     private void PopulateTilemapMemberVariables(GameObject roomGameObject)
     {
         // Get the grid component.
-        Grid grid = roomGameObject.GetComponentInChildren<Grid>();
+        grid = roomGameObject.GetComponentInChildren<Grid>();
 
         // Get tilemaps in children.
         Tilemap[] tilemaps = roomGameObject.GetComponentsInChildren<Tilemap>();
