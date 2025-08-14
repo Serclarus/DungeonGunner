@@ -9,15 +9,15 @@ public class HelperUtilities
     public static Camera mainCamera;
 
     public static Vector3 GetMouseWorldPosition()
-    {
+    {                  
         if (mainCamera == null) mainCamera= Camera.main;
 
-        Vector3 MouseScreenPosition = Input.mousePosition;
+        Vector3 mouseScreenPosition = Input.mousePosition;
 
-        MouseScreenPosition.x = Mathf.Clamp(MouseScreenPosition.x, 0f, Screen.width);
-        MouseScreenPosition.y = Mathf.Clamp(MouseScreenPosition.y, 0f, Screen.height);
+        mouseScreenPosition.x = Mathf.Clamp(mouseScreenPosition.x, 0f, Screen.width);
+        mouseScreenPosition.y = Mathf.Clamp(mouseScreenPosition.y, 0f, Screen.height);
 
-        Vector3 worldPositon = mainCamera.ScreenToWorldPoint(MouseScreenPosition);
+        Vector3 worldPositon = mainCamera.ScreenToWorldPoint(mouseScreenPosition);
 
         worldPositon.z = 0f;
 
@@ -28,7 +28,7 @@ public class HelperUtilities
     {
         float radians = Mathf.Atan2(vector.y, vector.x);
 
-        float degrees = radians * Mathf.Deg2Rad;
+        float degrees = radians * Mathf.Rad2Deg;
 
         return degrees;
     }
@@ -44,27 +44,27 @@ public class HelperUtilities
             aimDirection = AimDirection.UpRight;
         }
         // Up
-        else if (angleDegrees >= 67f && angleDegrees <= 112f)
+        else if (angleDegrees > 67f && angleDegrees <= 112f)
         {
             aimDirection = AimDirection.Up;
         }
         // Up Left
-        else if (angleDegrees >= 112f && angleDegrees <= 158f)
+        else if (angleDegrees > 112f && angleDegrees <= 158f)
         {
             aimDirection = AimDirection.UpLeft;
         }
         // Left
-        else if ((angleDegrees <= 180f && angleDegrees >= 158f) || (angleDegrees >= -180 && angleDegrees <= -135f))
+        else if ((angleDegrees <= 180f && angleDegrees > 158f) || (angleDegrees > -180 && angleDegrees <= -135f))
         {
             aimDirection = AimDirection.Left;
         }
         // Down
-        else if (angleDegrees >= -135f && angleDegrees <= -45f)
+        else if (angleDegrees > -135f && angleDegrees <= -45f)
         {
             aimDirection = AimDirection.Down;
         }
         // Right
-        else if ((angleDegrees >= -45f && angleDegrees <= 0f) || (angleDegrees >= 0 && angleDegrees <= 22f))
+        else if ((angleDegrees > -45f && angleDegrees <= 0f) || (angleDegrees > 0 && angleDegrees < 22f))
         {
             aimDirection = AimDirection.Right;
         }
