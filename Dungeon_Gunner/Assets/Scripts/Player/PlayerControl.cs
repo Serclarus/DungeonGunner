@@ -7,11 +7,16 @@ public class PlayerControl : MonoBehaviour
 
     [SerializeField] private Transform weaponShootPosition;
 
+    [SerializeField] private MovementDetailsSO movementDetails;
+
     private Player player;
+    private float moveSpeed;
 
     private void Awake()
     {
         player = GetComponent<Player>();
+
+        moveSpeed = movementDetails.GetMoveSpeed();
     }
 
     private void Update()
@@ -22,7 +27,24 @@ public class PlayerControl : MonoBehaviour
 
     private void MovementInput()
     {
-        player.idleEvent.CallIdleEvent();
+        float horizontalMovement = Input.GetAxisRaw("Horizontal");
+        float verticalMovement = Input.GetAxisRaw("Vertical");
+
+        Vector2 direction = new Vector2(horizontalMovement, verticalMovement);
+
+        if (horizontalMovement != 0 && verticalMovement != 0)
+        {
+            direction *= 0.7f;
+        }
+        
+        if(direction != Vector2.zero) 
+        { 
+            player.movementByVelocityEvent.CallMovementByVelocityEvent(direction, moveSpeed);
+        }
+        else
+        {
+            player.idleEvent.CallIdleEvent();
+        }
     }
 
     private void WeaponInput()

@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 
 #region REQUIRE COMPONENTS
+
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(IdleEvent))]
+[RequireComponent(typeof(MovementByVelocityEvent))]
+[RequireComponent(typeof(MovementByVelocity))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(AnimatePlayer))]
 [RequireComponent(typeof(Idle))]
@@ -27,6 +30,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public Health health;
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
+    [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
 
@@ -36,6 +40,7 @@ public class Player : MonoBehaviour
         health = GetComponent<Health>();
         idleEvent = GetComponent<IdleEvent>();
         aimWeaponEvent= GetComponent<AimWeaponEvent>();
+        movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }

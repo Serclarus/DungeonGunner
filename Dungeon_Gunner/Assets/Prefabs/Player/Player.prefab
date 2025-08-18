@@ -320,6 +320,7 @@ MonoBehaviour:
   health: {fileID: 0}
   idleEvent: {fileID: 0}
   aimWeaponEvent: {fileID: 0}
+  movementByVelocityEvent: {fileID: 0}
   spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &-2885991677029867960
@@ -359,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponShootPosition: {fileID: 8619051665599876006}
+  movementDetails: {fileID: 11400000, guid: 33683bf327ed85045abf8401673c4e49, type: 2}
 --- !u!114 &3893634768759372121
 MonoBehaviour:
   m_ObjectHideFlags: 0
