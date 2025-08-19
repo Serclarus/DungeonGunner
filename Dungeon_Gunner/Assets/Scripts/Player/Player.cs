@@ -9,6 +9,8 @@ using UnityEngine.Rendering;
 [RequireComponent(typeof(IdleEvent))]
 [RequireComponent(typeof(MovementByVelocityEvent))]
 [RequireComponent(typeof(MovementByVelocity))]
+[RequireComponent(typeof(MovementToPositionEvent))]
+[RequireComponent(typeof(MovementToPosition))]
 [RequireComponent(typeof(PlayerControl))]
 [RequireComponent(typeof(AnimatePlayer))]
 [RequireComponent(typeof(Idle))]
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public Health health;
     [HideInInspector] public IdleEvent idleEvent;
     [HideInInspector] public AimWeaponEvent aimWeaponEvent;
+    [HideInInspector] public MovementToPositionEvent movementToPositionEvent;
     [HideInInspector] public MovementByVelocityEvent movementByVelocityEvent;
     [HideInInspector] public SpriteRenderer spriteRenderer;
     [HideInInspector] public Animator animator;
@@ -39,6 +42,7 @@ public class Player : MonoBehaviour
         // Load components
         health = GetComponent<Health>();
         idleEvent = GetComponent<IdleEvent>();
+        movementToPositionEvent = GetComponent<MovementToPositionEvent>();
         aimWeaponEvent= GetComponent<AimWeaponEvent>();
         movementByVelocityEvent = GetComponent<MovementByVelocityEvent>();
         spriteRenderer = GetComponent<SpriteRenderer>();

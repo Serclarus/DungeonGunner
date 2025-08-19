@@ -9,6 +9,12 @@ public class MovementDetailsSO : ScriptableObject
     [Tooltip("Maximum move speed.")]
     public float maxMoveSpeed = 8f;
 
+    //only player fields
+    public float rollSpeed;
+    public float rollDistance;
+    public float rollCooldownTime;
+    //only player fields
+
     /// <summary>
     /// Get a random movement speed between the minimum and maximum values
     /// </summary>
