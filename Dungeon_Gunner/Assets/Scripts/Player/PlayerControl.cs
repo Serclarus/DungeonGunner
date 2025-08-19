@@ -79,7 +79,7 @@ public class PlayerControl : MonoBehaviour
 
         Vector3 targetPosition = player.transform.position + (Vector3)direction * movementDetails.rollDistance;
 
-        while(Vector3.Distance(player.transform.position, targetPosition) < minDistance)
+        while(Vector3.Distance(player.transform.position, targetPosition) > minDistance)
         {
             player.movementToPositionEvent.CallMovementToPositionEvent(targetPosition, player.transform.position, movementDetails.rollSpeed, direction, isPlayerRolling);
 
