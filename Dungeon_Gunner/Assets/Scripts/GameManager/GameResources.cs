@@ -39,4 +39,6 @@ public class GameResources : MonoBehaviour
     [Tooltip("Dimmed Material")]
     #endregion
     public Material dimmedMaterial;
+    public Material litMaterial;
+    public Shader variableLitShader;
 }
