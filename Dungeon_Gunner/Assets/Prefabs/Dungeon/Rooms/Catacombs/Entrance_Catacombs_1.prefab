@@ -8633,6 +8633,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3054645827938798965}
   - component: {fileID: 5476505636122767180}
+  - component: {fileID: 56102718794213242}
   - component: {fileID: 6406653861125063155}
   m_Layer: 12
   m_Name: Entrance_Catacombs_1
@@ -8683,6 +8684,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 22, y: 23}
   m_EdgeRadius: 0
+--- !u!114 &56102718794213242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7224931148630070477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20df356c913851840a65c448c9c198ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6406653861125063155
 MonoBehaviour:
   m_ObjectHideFlags: 0

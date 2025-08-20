@@ -2727,6 +2727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7009156255538652540}
   - component: {fileID: 513896977482172229}
+  - component: {fileID: -157946090793384782}
   - component: {fileID: 2787983648806899083}
   m_Layer: 12
   m_Name: CorridorNS_Catacombs_3
@@ -2777,6 +2778,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 11, y: 28}
   m_EdgeRadius: 0
+--- !u!114 &-157946090793384782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415367689713843396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20df356c913851840a65c448c9c198ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2787983648806899083
 MonoBehaviour:
   m_ObjectHideFlags: 0

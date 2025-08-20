@@ -32,6 +32,11 @@ public class Door : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        animator.SetBool(Settings.open, isOpen);
+    }
+
     /// <summary>
     /// Open the door
     /// </summary>
@@ -59,5 +64,16 @@ public class Door : MonoBehaviour
         doorTrigger.enabled = false;
 
         animator.SetBool(Settings.open, false);
+    }
+
+    public void UnlockDoor()
+    {
+        doorCollider.enabled = false;
+        doorTrigger.enabled = true;
+         if(previouslyOpened == true)
+        {
+            isOpen = false;
+            OpenDoor();
+        }
     }
 }

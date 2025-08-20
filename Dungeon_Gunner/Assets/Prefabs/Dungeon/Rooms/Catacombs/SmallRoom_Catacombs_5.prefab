@@ -11699,6 +11699,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8227588318318580144}
   - component: {fileID: 1462120759972737929}
+  - component: {fileID: -2496533546034395852}
   - component: {fileID: -1770109327096609243}
   m_Layer: 12
   m_Name: SmallRoom_Catacombs_5
@@ -11749,6 +11750,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 25, y: 40}
   m_EdgeRadius: 0
+--- !u!114 &-2496533546034395852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327421925113694216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20df356c913851840a65c448c9c198ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-1770109327096609243
 MonoBehaviour:
   m_ObjectHideFlags: 0
